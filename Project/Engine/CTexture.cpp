@@ -192,9 +192,9 @@ int CTexture::Create(ComPtr<ID3D11Texture2D> _Tex2D)
 
 
 
-void CTexture::AddSprite(Ptr<CSprite> _Sprite)
+void CTexture::AddSprite(CSprite* _Sprite)
 {
-	vector<Ptr<CSprite>>::iterator iter = find(m_vecSprite.begin(), m_vecSprite.end(), _Sprite); 
+	vector<CSprite*>::iterator iter = find(m_vecSprite.begin(), m_vecSprite.end(), _Sprite);
 	if(iter == m_vecSprite.end())
 		m_vecSprite.push_back(_Sprite);
 }

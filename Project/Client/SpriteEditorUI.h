@@ -1,5 +1,6 @@
 #pragma once
 #include "EditorUI.h"
+#include "ListUI.h"
 class CTexture;
 
 struct tSliceInfo
@@ -11,11 +12,10 @@ class SpriteEditorUI :
     public EditorUI
 {
 private:
-    float m_ScaleFactor;
+    float   m_ScaleFactor;
     Vector2 m_AtlasPos;
 
-    Ptr<CTexture> m_CurAtlas;
-
+    Ptr<CTexture>   m_CurAtlas;
 
 public:
     virtual void Render() override;

@@ -23,6 +23,7 @@ using std::wstring;
 #include <d3dcompiler.h>
 #include <DirectXMath.h>	// 수학 관련
 #include <DirectXPackedVector.h>	// 수학 관련 추가
+#include <dxgidebug.h>
 
 using namespace DirectX;
 using namespace DirectX::PackedVector;
@@ -30,6 +31,7 @@ using namespace DirectX::PackedVector;
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler")
 #pragma comment(lib, "dxguid")
+//#pragma comment(dll, "dxgidebug")
 
 #include "SimpleMath.h"
 

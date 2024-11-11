@@ -93,36 +93,44 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    // const
-    // 변수를 상수 취급한다.
-    // a 의 값의 변경을 문법으로 막아줄 뿐, 실제 a의 초기값은 runtime 중에 결정됨
-    // 진짜 상수는 아님, 변수값으로 초기화 받을 수 있기 때문
-    int b = 100;
-    const int a = 0;
-
-    // const expression
-    // 컴파일 시간 안에 값이 확정되는 상수
-    // 변수값으로 초기화하면 컴파일 시간 안에 값을 알 수 없기 때문에 오류
-    // 진짜 상수는 컴파일에서 값이 결정됨
-    int c = 100;
-    constexpr int d = 100/*c 에러*/;
+    // Enable run-time memory check for debug builds.
+#if defined(DEBUG) | defined(_DEBUG)
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
 
-    // 변수 템플릿 사용
-    // 둘다 다른 별 개의 int 변수
-    g_Int<int> = 100;
-    g_Int<float> = 20;
+    {
+        // const
+        // 변수를 상수 취급한다.
+        // a 의 값의 변경을 문법으로 막아줄 뿐, 실제 a의 초기값은 runtime 중에 결정됨
+        // 진짜 상수는 아님, 변수값으로 초기화 받을 수 있기 때문
+        int b = 100;
+        const int a = 0;
 
-    
-    // 템플릿 특수화 사용
-    float f = 0.f;
-    f = g_Float<int>;
-    f = g_Float<float>;
+        // const expression
+        // 컴파일 시간 안에 값이 확정되는 상수
+        // 변수값으로 초기화하면 컴파일 시간 안에 값을 알 수 없기 때문에 오류
+        // 진짜 상수는 컴파일에서 값이 결정됨
+        int c = 100;
+        constexpr int d = 100/*c 에러*/;
 
-    // 템플릿 특수화와 constexpr 사용
-    // 같은 표현, 컴파일 시점에 아래와 같이 변경됨
-    IsSame<int, float>;
-    false;
+
+        // 변수 템플릿 사용
+        // 둘다 다른 별 개의 int 변수
+        g_Int<int> = 100;
+        g_Int<float> = 20;
+
+
+        // 템플릿 특수화 사용
+        float f = 0.f;
+        f = g_Float<int>;
+        f = g_Float<float>;
+
+        // 템플릿 특수화와 constexpr 사용
+        // 같은 표현, 컴파일 시점에 아래와 같이 변경됨
+        IsSame<int, float>;
+        false;
+    }
 
 
 
@@ -171,7 +179,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
 
-
     
 
     // 테스트용 레벨 생성
@@ -207,6 +214,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             CDevice::GetInst()->Present();
         }
     }
+
+
+
+
+    //HMODULE dxgidebugdll = GetModuleHandleW(L"dxgidebug.dll");
+    //decltype(&DXGIGetDebugInterface) GetDebugInterface = reinterpret_cast<decltype(&DXGIGetDebugInterface)>(GetProcAddress(dxgidebugdll, "DXGIGetDebugInterface"));
+
+    //IDXGIDebug* debug;
+
+    //GetDebugInterface(IID_PPV_ARGS(&debug));
+
+    //OutputDebugStringW(L"================================================MEMORY LEAK====================================================\r\n");
+    //debug->ReportLiveObjects(DXGI_DEBUG_D3D11, DXGI_DEBUG_RLO_DETAIL);
+    //OutputDebugStringW(L"================================================MEMORY LEAK====================================================\r\n");
+
+    //debug->Release();
+
 
     FreeConsole();
     return (int)msg.wParam;

@@ -7,7 +7,7 @@ class CAssetMgr :
 {
 	SINGLE(CAssetMgr);
 private:
-	map<wstring, Ptr<CAsset>> m_mapAsset[(UINT)ASSET_TYPE::END];
+	map<wstring, Ptr<CAsset>>	m_mapAsset[(UINT)ASSET_TYPE::END];
 	bool                        m_bAssetChanged;
 
 public:
@@ -183,8 +183,6 @@ inline Ptr<T> CAssetMgr::Load(const wstring& _Key, const wstring& _RelativePath)
 	// 텍스쳐 파일 경로
 	wstring strFilePath = CPathMgr::GetInst()->GetContentPath() + _RelativePath;
 
-	// 에셋 객체 생성 및 로딩
-	pAsset = new T;
 	// 에셋 객체 생성 및 로딩
 	pAsset = new T;
 

@@ -24,7 +24,7 @@ private:
     int                                 m_RecentSRVNum;
     int                                 m_RecentUAVNum;
 
-    vector<Ptr<CSprite>>                m_vecSprite;
+    vector<CSprite*>                     m_vecSprite;
 
 public:
     UINT GetWidth() { return m_Desc.Width; }
@@ -35,8 +35,8 @@ public:
     ComPtr<ID3D11DepthStencilView> GetDSV() { return m_DSV; }
     ComPtr<ID3D11ShaderResourceView> GetSRV() { return m_SRV; }
 
-    void AddSprite(Ptr<CSprite> _Sprite);
-    const vector<Ptr<CSprite>>& GetSprites() { return m_vecSprite; }
+    void AddSprite(CSprite* _Sprite);
+    const vector<CSprite*>& GetSprites() { return m_vecSprite; }
     
 public:
     void Binding(int _RegisterNum);

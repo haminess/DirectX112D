@@ -9,7 +9,22 @@
 SpriteEditorUI::SpriteEditorUI()
     : EditorUI("SpriteEditor")
     , m_ScaleFactor(50.f)
+    , m_CurAtlas(nullptr)
 {
+    //m_TexListUI.SetName("Texture");
+    //m_TexListUI.SetActive(true);
+
+    //// ListUI 에 넣어줄 문자열 정보 가져오기
+    //m_TexListUI.AddItem("None");
+    //m_TexListUI.AddItem("HI");
+    //m_TexListUI.AddItem("Hello");
+
+    ////vector<wstring> vecAssetNames;
+    ////CAssetMgr::GetInst()->GetAssetNames(ASSET_TYPE::MATERIAL, vecAssetNames);
+    ////m_TexListUI.AddItem(vecAssetNames);
+
+    ////// 더블 클릭 시 호출시킬 함수 등록
+    ////m_TexListUI.AddDynamicDoubleClicked(this, (EUI_DELEGATE_2)&MeshRenderUI::SelectMaterial);
 }
 
 SpriteEditorUI::~SpriteEditorUI()
@@ -43,10 +58,11 @@ void SpriteEditorUI::Render_Update()
 
     // 왼쪽 영역 (텍스처 뷰어)
     {
-
         ImGui::BeginChild("Texture Viewer");
         ImVec2 min = ImGui::GetWindowPos();
         ImVec2 max = ImVec2(min.x + ImGui::GetWindowSize().x, min.y + ImGui::GetWindowSize().y);
+
+        // 화면 확대
         if (ImGui::IsMouseHoveringRect(min, max))
         {
             if (KEY_TAP(KEY::WHEEL_UP))
@@ -59,11 +75,13 @@ void SpriteEditorUI::Render_Update()
             }
         }
 
-
+        // 화면 이동
         if (KEY_PRESSED(KEY::MBTN))
         {
             m_AtlasPos += CKeyMgr::GetInst()->GetMouseDir();
         }
+
+        // 아틀라스 불러오기
         Ptr<CTexture> pTex = CAssetMgr::GetInst()->Load<CTexture>(L"JumpAtlas", L"");
         ImVec2 uv_min = ImVec2(0.0f, 0.0f);
         ImVec2 uv_max = ImVec2(1.0f, 1.0f);
@@ -104,19 +122,30 @@ void SpriteEditorUI::Render_Update()
         ImVec2 backSize = ImGui::GetWindowSize();
         int itemWidth = (backSize.x - 150) / 2;
 
-        DrawBoldTextUI("Atlas Info"); 
-        char atlasName[256] = "";
-        string name = atlasName;
-        DrawTextUI("Name", name);
+        // 
 
-        ImGui::Text("");
-        ImGui::SameLine(ImGui::GetColumnWidth() - 70 * 2);
-        if (ImGui::Button("Load", ImVec2(60, 0))) {}
+        DrawBoldTextUI("Atlas Info");
 
-        ImGui::SameLine(ImGui::GetColumnWidth() - 70);
-        if (ImGui::Button("Save", ImVec2(60, 0))) {}
+        if (nullptr != m_CurAtlas)
+        {
+            char atlasName[256] = "";
+            string name = atlasName;
+            DrawTextUI("Name", name);
+
+            ImGui::Text("");
+            ImGui::SameLine(ImGui::GetColumnWidth() - 70 * 2);
+            if (ImGui::Button("Load", ImVec2(60, 0))) {}
+
+            ImGui::SameLine(ImGui::GetColumnWidth() - 70);
+            if (ImGui::Button("Save", ImVec2(60, 0))) {}
+        }
+        else
+        {
+            // 스프라이트 열기
+            if (ImGui::Button("Open Sprite", ImVec2(60, 0))) {}
+        }
+
         ImGui::EndGroup();
-
         ImGui::Spacing();
 
         // Slice

@@ -15,6 +15,7 @@ CSprite::CSprite(bool _bEngineRes)
 
 CSprite::~CSprite()
 {
+	int a = 0;
 }
 
 

@@ -45,6 +45,7 @@ int CDevice::Init(HWND _hWnd, Vector2 _Resolution)
 	// 2. SwapChain 생성하기
 	if (FAILED(CreateSwapChain())) return E_FAIL;
 
+
 	// 3. RenderTarget, DepthStencilTex, View 생성하기
 	if (FAILED(CreateView())) return E_FAIL;
 
@@ -75,6 +76,79 @@ int CDevice::Init(HWND _hWnd, Vector2 _Resolution)
 	if (FAILED(CreateConstBuffer())) return E_FAIL;
 
 	g_Data.RenderResolution = m_Resolution;
+
+	m_Device->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("Device") - 1, "Device");
+	m_Context->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("Context") - 1, "Context");
+	m_SwapChain->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("SwapChain") - 1, "SwapChain");
+	m_RTTex->GetRTV()->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("RTTex") - 1, "RTTex");
+	m_DSTex->GetDSV()->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("DSTex") - 1, "DSTex");
+
+	for (int i = 0; i < 2; ++i)
+	{
+		if (nullptr == m_Sampler[i])
+			continue;
+		m_Sampler[i]->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("Sampler" + i) - 1, "Sampler" + i);
+	}
+	for (int i = 0; i < (int)BS_TYPE::END; ++i)
+	{
+		if (nullptr == m_BSState[i])
+			continue;
+		m_BSState[i]->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("BSState" + i) - 1, "BSState" + i);
+	}
+	for (int i = 0; i < (int)DS_TYPE::END; ++i)
+	{
+		if (nullptr == m_DSState[i])
+			continue;
+		m_DSState[i]->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("DSState" + i) - 1, "DSState" + i);
+	}
+	for (int i = 0; i < (int)RS_TYPE::END; ++i)
+	{
+		if (nullptr == m_RSState[i])
+			continue;
+		m_RSState[i]->SetPrivateData(WKPDID_D3DDebugObjectName, sizeof("RSState" + i) - 1, "RSState" + i);
+	}
+
+
+
+
+
+	// 어댑터 열거
+	// https://lipcoder.tistory.com/24
+	// 어뎁터에 접근할 index 변수
+	//UINT i = 0;
+	//// Adapter를 담아둘 포인터 변수
+	//IDXGIAdapter* adapter = nullptr;
+	//// Adapter들을 저장할 vector 컨테이너
+	//std::vector<IDXGIAdapter*> adapterList;
+
+	//// IDXGIFactory 객체를 통해 어뎁터들을 열거한다. i를 index로 사용한다.
+	//// 만약 index가 시스템에 존재하는 어뎁터의 갯수와 같거나 더 크다면 while문을 종료한다.
+	//while (mdxgiFactory->EnumAdapters(i, &adapter) != DXGI_ERROR_NOT_FOUND)
+	//{
+	//	// 어뎁터 정보 구조체
+	//	DXGI_ADAPTER_DESC desc;
+	//	adapter->GetDesc(&desc);
+
+	//	// 어뎁터의 이름을 출력한다. (GPU 정보)
+	//	std::wstring text = L"***Adapter: ";
+	//	test += desc.Description;
+	//	text += L"\n";
+
+	//	OutputDebugString(text.c_str());
+
+	//	// 어뎁터 정보를 컨테이너에 담는다.
+	//	adapterList.push_back(adapter);
+
+	//	++i;
+	//}
+
+	//// adapter의 모든 출력을 열거하고 release한다.
+	//for (size_t i = 0; i < adapterList.size(); ++i)
+	//{
+	//	LogAdapterOutputs(adapterList[i]);
+	//	ReleaseCom(adapterList[i]);
+	//}
+	
 
 	return S_OK;
 }
