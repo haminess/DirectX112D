@@ -13,6 +13,7 @@
 #include "imgui/imgui_impl_win32.h"
 
 #include "EditorUI.h"
+#include "ParamUI.h"
 
 CImGuiMgr::CImGuiMgr()
     : m_Inspector(nullptr)
@@ -103,6 +104,8 @@ void CImGuiMgr::Tick()
 
 void CImGuiMgr::Render()
 {
+    ParamUI::g_ParamID = 0;
+
     // Render Start
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
@@ -158,6 +161,7 @@ void CImGuiMgr::SetActive(string _ID, bool _On)
 #include "ContentUI.h"
 #include "Outliner.h"
 #include "SpriteEditorUI.h"
+#include "AnimEditorUI.h"
 
 
 void CImGuiMgr::CreateEditorUI()
@@ -200,5 +204,10 @@ void CImGuiMgr::CreateEditorUI()
     // Sprite Editor
     pUI = new SpriteEditorUI;
     pUI->SetActive(false);
+    m_mapUI.insert(make_pair(pUI->GetID(), pUI));
+
+    // Animation Editor
+    pUI = new AnimEditorUI;
+    pUI->SetActive(true);
     m_mapUI.insert(make_pair(pUI->GetID(), pUI));
 }

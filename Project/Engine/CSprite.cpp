@@ -18,6 +18,16 @@ CSprite::~CSprite()
 	int a = 0;
 }
 
+Vector2 CSprite::GetUVFromPixel(Vector2 _Pixel, Vector2 _Resolution)
+{
+	return _Pixel / _Resolution;
+}
+
+Vector2 CSprite::GetPixelFromUV(Vector2 _UV, Vector2 _Resolution)
+{
+	return _UV * _Resolution;
+}
+
 
 
 int CSprite::Save(const wstring& _strFilePath)

@@ -1,22 +1,37 @@
 #pragma once
 #include "CAsset.h"
+
 #include "CGraphicShader.h"
-class CGraphicShader;
-class CTexture;
+#include "CTexture.h"
+
 class CMaterial :
     public CAsset
 {
 private:
-    Ptr<CGraphicShader> m_Shader;
-    MtrlConst           m_Const;
-    Ptr<CTexture>       m_arrTex[(UINT)TEX_PARAM::TEX_END];
+    Ptr<CGraphicShader>     m_Shader;
+    MtrlConst               m_Const;
+    Ptr<CTexture>           m_arrTex[TEX_END];
 
-    // 원본 재질을 가리키는 포인터(nullptr)인 경우 마스터 재질(원본)
-    Ptr<CMaterial>      m_SharedMtrl;
+    // 원본 재질을 가리키는 포인터(nullptr 인 경우 자신이 원본)
+    Ptr<CMaterial>          m_SharedMtrl;
 
 
 public:
+    template<typename T>
+    void SetScalarParam(SCALAR_PARAM _Type, const T& _Data);
+    void* GetScalarParam(SCALAR_PARAM _Type);
+
+    void SetTexParam(TEX_PARAM _Param, Ptr<CTexture> _tex);
+    Ptr<CTexture>& GetTexParam(TEX_PARAM _Param) { return m_arrTex[_Param]; }
+
+    Ptr<CMaterial> GetSharedMtrl() { return m_SharedMtrl; }
+
+    Ptr<CTexture> GetTexture(int _idx) { return   m_arrTex[_idx]; }
+
+    void SetShader(Ptr<CGraphicShader> _Shader) { m_Shader = _Shader; }
+    Ptr<CGraphicShader> GetShader() { return m_Shader; }
     void Binding();
+
 
 public:
     virtual int Save(const wstring& _FilePath) override;
@@ -25,21 +40,9 @@ private:
     virtual int Load(const wstring& _strFilePath) override;
 
 public:
-    template <typename T>
-    void SetScalarParam(SCALAR_PARAM _Type, const T& _Data);
-    void SetTexParam(TEX_PARAM _Param, Ptr<CTexture> _tex);
-
-    void SetShader(Ptr<CGraphicShader> _Shader) { m_Shader = _Shader; }
-    Ptr<CGraphicShader> GetShader() { return m_Shader; }
-
-    Ptr<CMaterial> GetSharedMtrl() { return   m_SharedMtrl; }
-    Ptr<CTexture> GetTexture(int _idx);
-
-public:
     virtual CMaterial* Clone() override;
-
 private:
-    CMaterial(const CMaterial& _Other);
+    CMaterial(const CMaterial& _Origin);
 
 public:
     CMaterial(bool _EngineRes = false);
@@ -102,3 +105,4 @@ inline void CMaterial::SetScalarParam(SCALAR_PARAM _Type, const T& _Data)
         break;
     }
 }
+

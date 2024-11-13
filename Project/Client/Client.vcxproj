@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimEditorUI.h" />
     <ClInclude Include="AssetUI.h" />
     <ClInclude Include="CameraUI.h" />
     <ClInclude Include="CEditorCamScript.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="MeshUI.h" />
     <ClInclude Include="ObjectUI.h" />
     <ClInclude Include="Outliner.h" />
+    <ClInclude Include="ParamUI.h" />
     <ClInclude Include="ParticleSystemUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PrefabUI.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="TreeUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimEditorUI.cpp" />
     <ClCompile Include="AssetUI.cpp" />
     <ClCompile Include="CameraUI.cpp" />
     <ClCompile Include="CEditorCamScript.cpp" />
@@ -233,6 +236,7 @@
     <ClCompile Include="MeshUI.cpp" />
     <ClCompile Include="ObjectUI.cpp" />
     <ClCompile Include="Outliner.cpp" />
+    <ClCompile Include="ParamUI.cpp" />
     <ClCompile Include="ParticleSystemUI.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

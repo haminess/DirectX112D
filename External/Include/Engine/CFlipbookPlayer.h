@@ -26,10 +26,28 @@ public:
         m_Time = 0.f;
         m_SpriteIdx = 0;
     }
+    void Stop()
+    {
+        m_CurFlipbook = nullptr;
+        m_FPS = 0.f;
+        m_Repeat = false;
+        m_Time = 0.f;
+        m_SpriteIdx = 0;
+    }
+    void Pause()
+    {
+        m_Repeat = false;
+        m_Finish = true;
+    }
 
     Ptr<CSprite> GetCurrentSprite() { return m_CurFlipbook->GetSprite(m_SpriteIdx); }
     Ptr<CFlipbook> GetCurFlipbook() { return m_CurFlipbook; }
     Ptr<CFlipbook> GetFlipbook(int _idx) { return m_vecFlipbook[_idx]; }
+    float GetFPS() { return m_FPS; }
+    bool IsLoop() { return m_Repeat; }
+
+    void SetLoop(bool _Loop) { m_Repeat = _Loop; }
+    void SetCurSpriteIdx(int _Idx) { m_SpriteIdx = _Idx; }
 
     void Binding();
     void Clear();

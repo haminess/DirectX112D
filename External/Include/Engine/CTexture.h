@@ -29,6 +29,8 @@ private:
 public:
     UINT GetWidth() { return m_Desc.Width; }
     UINT GetHeight() { return m_Desc.Height; }
+    Vector2 GetResolution() { return Vector2(m_Desc.Width, m_Desc.Height); }
+    float GetAspectRatio() { return (float)m_Desc.Width / m_Desc.Height; }
 
     ComPtr<ID3D11Texture2D> GetTex2D() { return m_Tex2D; }
     ComPtr<ID3D11RenderTargetView> GetRTV() { return m_RTV; }
@@ -37,6 +39,7 @@ public:
 
     void AddSprite(CSprite* _Sprite);
     const vector<CSprite*>& GetSprites() { return m_vecSprite; }
+    vector<CSprite*>& GetSpritesForEdit() { return m_vecSprite; }
     
 public:
     void Binding(int _RegisterNum);

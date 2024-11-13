@@ -58,6 +58,9 @@ void EditorUI::Render_Modalless()
 
 	ImGui::Begin(strID.c_str(), &Active);
 
+	if (!ImGui::IsWindowFocused)
+		return;
+
 	// ImGui 의 X 버튼을 누른 경우
 	if (Active != m_Active)
 		SetActive(Active);
@@ -95,6 +98,7 @@ void EditorUI::Render_Modal()
 	bool Active = m_Active;
 
 	ImGui::OpenPopup(strID.c_str());
+
 	if (ImGui::BeginPopupModal(strID.c_str(), &Active))
 	{
 		Render_Update();

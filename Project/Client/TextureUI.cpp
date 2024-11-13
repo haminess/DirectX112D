@@ -22,7 +22,7 @@ void TextureUI::Render_Update()
 
     string strKey = string(pAsset->GetKey().begin(), pAsset->GetKey().end());
 
-    ImGui::InputText("##MeshName", (char*)strKey.c_str(), strKey.length(), ImGuiInputTextFlags_ReadOnly);
+    ImGui::InputText("##TexName", (char*)strKey.c_str(), strKey.length(), ImGuiInputTextFlags_ReadOnly);
 
     int width = pAsset->GetWidth();
     int height = pAsset->GetHeight();

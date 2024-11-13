@@ -125,15 +125,6 @@ void Inspector::SetTargetAsset(Ptr<CAsset> _Asset)
 
 void Inspector::Tick()
 {
-	if (KEY_PRESSED(KEY::CTRL) && KEY_TAP(KEY::D))
-	{
-		CreateObject(m_TargetObject->Clone(), 0, false);
-	}
-	else if (KEY_TAP(KEY::DEL))
-	{
-		DestroyObject(m_TargetObject);
-		SetTargetObject(nullptr);
-	}
 
 }
 
@@ -173,6 +164,16 @@ void Inspector::Render_Update()
 				}
 			}
 			ImGui::EndCombo();
+		}
+
+		if (KEY_PRESSED(KEY::CTRL) && KEY_TAP(KEY::D))
+		{
+			CreateObject(m_TargetObject->Clone(), 0, false);
+		}
+		else if (KEY_TAP(KEY::DEL) && ImGui::IsWindowFocused)
+		{
+			DestroyObject(m_TargetObject);
+			SetTargetObject(nullptr);
 		}
 	}
 	

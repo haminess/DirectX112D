@@ -38,20 +38,27 @@ bool DrawVector2UI(const string& _Name, Vector2* _Value)
 
 bool DrawNameInt2UI(const string& _Name, const string& _Name1, const string& _Name2, Vector2* _Value, int width)
 {
+	bool isInput = false;
+	int x = _Value->x;
+	int y = _Value->y;
 	string Id = "##" + _Name + _Name1;
 	DrawNameUI(_Name);
 	ImGui::SameLine(100);
 	ImGui::Text(_Name1.c_str());
 	ImGui::SameLine(115);
 	ImGui::SetNextItemWidth(width);
-	ImGui::DragInt(Id.c_str(), (int*)&(_Value->x));
+	isInput = ImGui::DragInt(Id.c_str(), &x);
+	_Value->x = x;
 
 	Id = "##" + _Name + _Name2;
 	ImGui::SameLine(120 + width);
 	ImGui::Text(_Name2.c_str());
 	ImGui::SameLine(135 + width);
 	ImGui::SetNextItemWidth(width);
-	return ImGui::DragInt(Id.c_str(), (int*)&(_Value->y));
+	isInput += ImGui::DragInt(Id.c_str(), &y);
+	_Value->y = y;
+
+	return isInput;
 }
 
 bool DrawNameFloat2UI(const string& _Name, const string& _Name1, const string& _Name2, Vector2* _Value, int width)

@@ -174,6 +174,9 @@ void CAssetMgr::CreateEngineGraphicShader()
 	pShader->SetBSState(BS_TYPE::DEFAULT);
 	pShader->SetDomain(SHADER_DOMAIN::DOMAIN_MASK);
 
+	pShader->AddScalarParam("Test Parameter", VEC2_2, true);
+	pShader->AddTexParam("Output Texture", TEX_0);
+
 	CAssetMgr::GetInst()->AddAsset(L"Std2DShader", pShader);
 
 

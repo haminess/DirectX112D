@@ -33,9 +33,11 @@ public:
 	template<typename T>
 	int AddAsset(const wstring& _Key, Ptr<T> _Asset);
 
-
 	template<typename T>
 	Ptr<T> FindAsset(const wstring& _Key);
+
+	template<typename T>
+	void DeleteAsset(const wstring& _Key);
 
 	template<typename T>
 	Ptr<T> Load(const wstring& _Key, const wstring& _RelativePath);
@@ -169,6 +171,19 @@ inline Ptr<T> CAssetMgr::FindAsset(const wstring& _Key)
 		return nullptr;
 
 	return (T*)iter->second.Get();
+}
+
+template<typename T>
+inline void CAssetMgr::DeleteAsset(const wstring& _Key)
+{
+	ASSET_TYPE Type = GetAssetType<T>();
+
+	map<wstring, Ptr<CAsset>>::iterator iter = m_mapAsset[(UINT)Type].find(_Key);
+
+	if (iter == m_mapAsset[(UINT)Type].end())
+		return;
+
+	m_mapAsset[(UINT)Type].erase(iter);
 }
 
 template<typename T>

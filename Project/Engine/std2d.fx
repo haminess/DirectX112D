@@ -55,6 +55,9 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     
     float4 vColor = (float4) 0.f;
     
+    if (g_vec2_2.y == 3.f)
+        discard;
+    
     // Flipbook 의 현재 Sprite 를 재생해야 하는 경우
     if (g_SpriteUse)
     {

@@ -122,5 +122,35 @@ void CMaterial::SetTexParam(TEX_PARAM _Param, Ptr<CTexture> _tex)
 	m_arrTex[_Param] = _tex;
 }
 
+void* CMaterial::GetScalarParam(SCALAR_PARAM _Type)
+{
+	switch (_Type)
+	{
+	case INT_0:
+	case INT_1:
+	case INT_2:
+	case INT_3:
+		return m_Const.iArr + _Type;
+	case FLOAT_0:
+	case FLOAT_1:
+	case FLOAT_2:
+	case FLOAT_3:
+		return m_Const.fArr + (_Type - FLOAT_0);
+	case VEC2_0:
+	case VEC2_1:
+	case VEC2_2:
+	case VEC2_3:
+		return m_Const.v2Arr + (_Type - VEC2_0);
+	case VEC4_0:
+	case VEC4_1:
+	case VEC4_2:
+	case VEC4_3:
+		return m_Const.v4Arr + (_Type - VEC4_0);
+	case MAT_0:
+	case MAT_1:
+		return m_Const.mat + (_Type - MAT_0);
+	}
 
-Ptr<CTexture> CMaterial::GetTexture(int _idx) { return   m_arrTex[_idx]; }
+	assert(nullptr);
+}
+
