@@ -8,13 +8,13 @@
 *.obj
 
 # Precompiled Headers
-*.gch
-*.pch
+#*.gch
+#*.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+#*.so
+#*.dylib
+#*.dll
 
 # Fortran module files
 *.mod
@@ -27,9 +27,9 @@
 
 
 # Executables
-*.exe
-*.out
-*.app
+#*.exe
+#*.out
+#*.app
 
 # Visual Studio 관련
 .vs/
@@ -83,4 +83,4 @@ ipch/
 *.wav
 *.fbx
 #*.png
-*.jpg
+#*.jpg
