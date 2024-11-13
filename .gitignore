@@ -82,5 +82,5 @@ ipch/
 *.mp4
 *.wav
 *.fbx
-*.png
+#*.png
 *.jpg
