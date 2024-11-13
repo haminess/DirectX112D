@@ -64,8 +64,8 @@ ipch/
 *.VC.VC.opendb
 
 # 프로젝트 파일
-*.vcxproj.filters
-*.vcxproj.user
+#*.vcxproj.filters
+#*.vcxproj.user
 
 # 중간 파일들
 *.pdb
